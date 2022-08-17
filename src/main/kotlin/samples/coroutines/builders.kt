@@ -1,8 +1,11 @@
 package samples.coroutines
 
 import kotlinx.coroutines.*
+import kotlin.coroutines.coroutineContext
 
-fun main() {
+suspend fun main() {
+
+    coroutineContext.isActive
     runBlocking {
         delay(1000L)
         yield()
@@ -18,6 +21,12 @@ fun main() {
     }
     Thread.sleep(2000L)
 
-    //coroutineScope {  }
+    coroutineScope {
+        this.launch {
+            delay(1000L)
+            var x = this.coroutineContext
+            println("$x")
+        }.join()
+    }
 }
 
