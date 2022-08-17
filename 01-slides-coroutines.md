@@ -121,6 +121,9 @@ Funksjoner som `runBlocking` og
 ---
 
 # CoroutineScope
+
+
+
 <!--
 En CoroutineScope har en CoroutineContext som har contexten som bestemmer hvordan korutinen kjører. CoroutineContext inneholder bla.a 
 En dispatcher som avgjør hvordan tråder allokeres og er `Job` objekt som kan brukes til å sjekke om korutinen kjører, og til å cancellere den.
