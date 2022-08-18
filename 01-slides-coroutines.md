@@ -58,6 +58,7 @@ paginate: true
 
 * child coroutine inherits properties from parent
 * cancellation of parent propagates to children
+* errors in children propogates to parents
 
 <!--
   Med structured concurrency forsøker man å strukturere bruken av korutiner
@@ -78,6 +79,7 @@ alle child korutiner også bli canceled. Dette gir en naturlig måte å organise
 
 * Starts a coroutine with a new context
 * can be called from "normal" code
+* not usually used outside of tests or main function
 * waits for all contained coroutines to finish
 
 <!--
@@ -109,6 +111,12 @@ alle child korutiner også bli canceled. Dette gir en naturlig måte å organise
 ---
 
 # Suspend Functions
+
+* all functions that can suspend is marked with the `suspend` keyword
+* suspending code can not be called from a non-suspending code
+* but non-suspending code can be called from suspending code
+* a suspend function doesn't provide a CoroutineScope 
+  * (we can use `coroutineScope` for that)
 <!--
 Funksjoner som `runBlocking` og 
 `coroutineScope {}` kan benyttes i en suspend funksjon for å få tilgang til coroutine scopet som funksjonen blir kallet fra
