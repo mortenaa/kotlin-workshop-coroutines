@@ -81,11 +81,14 @@ alle child korutiner også bli canceled. Dette gir en naturlig måte å organise
 * can be called from "normal" code
 * not usually used outside of tests or main function
 * waits for all contained coroutines to finish
+* blocks the thread!
 
 <!--
   `runBlocking` er en korutine builder som blokerer til korutinen er ferdig. Den lager en ny korutine, 
   og bruker den aktuelle tråden til å kjøre korutinen. 
   Den er en bro mellom "vanlig" kode og korutiner (suspending functions)
+  Siden runBlocking skal kunne kalles fra normal kode kan den ikke suspende selv,
+  men må blokkere tråden den kjører i til corutinene er ferdig
 -->
 ---
 
@@ -96,7 +99,8 @@ alle child korutiner også bli canceled. Dette gir en naturlig måte å organise
 * returns Job
   can cancel or wait for completion
 * does not return a value from the lambda
-* for GlobalScope it does not wait for contained coroutines to finish
+* waits for coroutines inside to finish (suspends but does not block)
+  * for GlobalScope it does not wait for contained coroutines to finish
 <!--
   launch er en coroutine builder som lager en korutine, som startes umiddelbart (men det 
   kan konfigureres).
@@ -161,4 +165,18 @@ Context og dermed tråd kan endres underveis i en korutine med `withContext`
   og er dermed mulig å lekke minne om man ikke stopper (`cancel`) korutiner som er startet med dette scope.
 -->
 
+---
 
+# Cancellation
+
+---
+
+# Error handling
+
+---
+
+# Testing Coroutines
+
+---
+
+# Debugging Coroutines
