@@ -94,7 +94,7 @@ alle child korutiner også bli canceled. Dette gir en naturlig måte å organise
 * returns Job
   can cancel or wait for completion
 * does not return a value from the lambda
-* does not wait for contained coroutines to finish
+* for GlobalScope it does not wait for contained coroutines to finish
 <!--
   launch er en coroutine builder som lager en korutine, som startes umiddelbart (men det 
   kan konfigureres).
@@ -117,6 +117,13 @@ Funksjoner som `runBlocking` og
 ---
 
 # Async / Await
+
+* Build and start coroutine (like launch)
+* extension on CoroutineScope interface
+* Returns Deferred<T> which is subclass of Job
+* Can cancel or join like with Job
+* Can also `await`, which produces a value when completed
+* `await` will suspend until value is ready
 
 ---
 
