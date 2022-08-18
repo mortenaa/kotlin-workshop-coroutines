@@ -23,4 +23,6 @@ fun main() = runBlocking {
         println("Coroutine done")
     }
     println("Coroutine launched")
+    job.join()
+    println("Done")
 }
