@@ -19,8 +19,11 @@ paginate: true
 
 ---
 
+<<<<<<< Updated upstream
 ### Coroutines - Motivation
 
+=======
+>>>>>>> Stashed changes
 - Avoid blocking main thread
 - Concurrency with Threads is difficult. Deadlocks & memory leaks
 - Thread are resource hungry
@@ -40,6 +43,7 @@ paginate: true
 
 ### What is a coroutine?
 
+<<<<<<< Updated upstream
 ```kotlin
     val job = launch {
         println("Coroutine started")
@@ -49,6 +53,8 @@ paginate: true
     println("Coroutine launched")
 ```
 
+=======
+>>>>>>> Stashed changes
 - A computation that can be suspended and resumed
 - Lightweight & fast switching
 - Easier to manage than threads
@@ -65,8 +71,11 @@ paginate: true
 
 ---
 
+<<<<<<< Updated upstream
 ### Structured concurrency
 
+=======
+>>>>>>> Stashed changes
 - child coroutine inherits properties from parent
 - cancellation of parent propagates to children
 - errors in children propogates to parents
@@ -111,7 +120,11 @@ alle child korutiner også bli canceled. Dette gir en naturlig måte å organise
   can cancel or wait for completion
 - does not return a value from the lambda
 - waits for coroutines inside to finish (suspends but does not block)
+<<<<<<< Updated upstream
   - for GlobalScope it does not wait for contained coroutines to finish
+=======
+  * for GlobalScope it does not wait for contained coroutines to finish
+>>>>>>> Stashed changes
 <!--
   launch er en coroutine builder som lager en korutine, som startes umiddelbart (men det 
   kan konfigureres).
@@ -131,7 +144,11 @@ alle child korutiner også bli canceled. Dette gir en naturlig måte å organise
 - suspending code can not be called from a non-suspending code
 - but non-suspending code can be called from suspending code
 - a suspend function doesn't provide a CoroutineScope 
+<<<<<<< Updated upstream
   - (we can use `coroutineScope` for that)
+=======
+  * (we can use `coroutineScope` for that)
+>>>>>>> Stashed changes
 <!--
 Funksjoner som `runBlocking` og 
 `coroutineScope {}` kan benyttes i en suspend funksjon for å få tilgang til coroutine scopet som funksjonen blir kallet fra
@@ -141,6 +158,7 @@ Funksjoner som `runBlocking` og
 
 ### Async / Await
 
+<<<<<<< Updated upstream
 ```kotlin
     val result = async {
         delay(1000L)
@@ -148,6 +166,8 @@ Funksjoner som `runBlocking` og
     }
     println("Result=${result.await()}")
 ```
+=======
+>>>>>>> Stashed changes
 - Build and start coroutine (like launch)
 - extension on CoroutineScope interface
 - Returns Deferred<T> which is subclass of Job
@@ -159,21 +179,21 @@ Funksjoner som `runBlocking` og
 
 ### CoroutineScope
 
-
-
 <!--
 En CoroutineScope har en CoroutineContext som har contexten som bestemmer hvordan korutinen kjører. CoroutineContext inneholder bla.a 
 En dispatcher som avgjør hvordan tråder allokeres og er `Job` objekt som kan brukes til å sjekke om korutinen kjører, og til å cancellere den.
 Innebygde dispatchere `Dispatcher.Default|Main|IO|Unconfined` (TODO: beskrivelse av hver dispatcher). Man kan også sett opp sin egen dispatcher.
 
-Dispatchers:
+Context og dermed tråd kan endres underveis i en korutine med `withContext`
+-->
+
+# Dispatchers
+
 - Default: General work. Expensive computations. Threadpool based on cpu cores
 - Main: Run on main/UI thread. (Android, JavaFX, Swing)
 - IO: for IO operations. Large threadpool
 - Unconfined: Dont care. same thread
 
-Context og dermed tråd kan endres underveis i en korutine med `withContext`
--->
 ---
 
 ### GlobalScope
