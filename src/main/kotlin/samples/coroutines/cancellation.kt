@@ -21,5 +21,5 @@ suspend fun main() = coroutineScope {
         42
     }
     println("Coroutine launched")
-    println("Done. Result=${result.await()}")
+    println("Result=${result.await()}")
 }

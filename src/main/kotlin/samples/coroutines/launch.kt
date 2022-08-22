@@ -24,6 +24,4 @@ suspend fun main() = coroutineScope {
         println("Coroutine done")
     }
     println("Coroutine launched")
-    //job.join()
-    println("Done")
-}
+}.also { println("Done") }
