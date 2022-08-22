@@ -12,9 +12,9 @@ suspend fun main() = coroutineScope {
      *
      * Notice the order of the printed output.
      *
-     * launch is an extension function on CoroutineScope. Here the scope it set up by
-     * runBlocking, and is available as `this`, thus we can call launch without explicitly
-     * providing a coroutinescope.
+     * `launch` is an extension function on the [CoroutineScope] interface.
+     * Here the scope it set up by runBlocking, and is available as `this`, thus we can call `launch` without explicitly
+     * providing a coroutine scope.
      *
      */
 

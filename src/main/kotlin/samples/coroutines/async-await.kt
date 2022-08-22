@@ -11,7 +11,7 @@ suspend fun main() = coroutineScope {
      *
      * `deferred.await()` will wait for the coroutine to produce a value.
      *
-     * async like launch is an extension function on CoroutineScope.
+     * async like launch is an extension function on the [CoroutineScope] interface.
      *
      */
 

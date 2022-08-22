@@ -14,12 +14,14 @@ suspend fun main() = coroutineScope {
      *
      */
 
-    val x = async {
-        var y = async { delay(2000L) }
-        y.invokeOnCompletion { println("completed because $it") }
-        y.await()
+    val parent = async {
+        var child = async {
+            delay(2000L)
+        }
+        child.invokeOnCompletion { println("completed because $it") }
+        child.await()
     }
-    x.cancel()
-    x.join()
+    parent.cancel()
+    parent.join()
 
 }
