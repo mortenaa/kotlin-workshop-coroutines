@@ -3,6 +3,7 @@ package service.timetable
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.runBlocking
 import java.util.*
+import kotlin.math.min
 
 fun main() {
     println(timetable)
@@ -14,15 +15,16 @@ class TimetableService {
     fun departures(max: Int = 10): List<Departure> {
         return runBlocking {
             delay(1000L)
-            (1..max).map {
-                Departure(UUID.randomUUID().toString(), "22","Bergen", DepartureTime(Hours(12), Minutes(23)), "F")
-            }.toList()
+            timetable.subList(0, min(timetable.size, max))
         }
     }
 }
 
 class RealTimeService {
-    fun liveDepartureTime(departureId: String) = realTime[departureId]
+    fun liveDepartureTime(departureId: String) = runBlocking {
+        delay(1000L)
+        realTime[departureId]
+    }
 }
 
 val timetable =
