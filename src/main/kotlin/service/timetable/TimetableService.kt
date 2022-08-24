@@ -14,7 +14,7 @@ class TimetableService {
 
     fun departures(max: Int = 10): List<Departure> {
         return runBlocking {
-            delay(1000L)
+            delay(500L)
             timetable.subList(0, min(timetable.size, max))
         }
     }
@@ -22,7 +22,7 @@ class TimetableService {
 
 class RealTimeService {
     fun liveDepartureTime(departureId: String) = runBlocking {
-        delay(1000L)
+        delay(500L)
         realTime[departureId]
     }
 }

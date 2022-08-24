@@ -1,27 +1,31 @@
 package service.timetable
 
+import org.fusesource.jansi.Ansi.ansi
+
 class DepartureDisplay(val timetableService: TimetableService, val realTimeService: RealTimeService) {
 
-    fun update(): String {
-        val buffer = StringBuilder()
-        buffer.append("                  DEPARTURES\n\n")
-        buffer.append("==================================================\n")
-        buffer.append("  #  To                   Platform Departure\n")
-        buffer.append("--------------------------------------------------\n")
-
+    fun update() {
+        val header = StringBuilder()
+        header.append(ansi().eraseScreen())
+        header.append("                  DEPARTURES\n\n")
+        header.append("==================================================\n")
+        header.append("  #  To                   Platform Departure\n")
+        header.append("--------------------------------------------------\n")
+        print(header)
+        val table = StringBuilder()
         timetableService.departures(10).forEach {
             it.apply {
                 val liveTiming = realTimeService.liveDepartureTime(id)
                 val timeString = if (liveTiming != null) {
-                    "$liveTiming (delayed)"
+                    "@|red $liveTiming (delayed)|@"
                 } else {
-                    time
+                    "@|green $time|@"
                 }
-                buffer.append(String.format("%4s %-20s %5s    %-15s\n", line, destination, platform, timeString))
+                table.append(ansi().render(String.format("%4s %-20s %5s    %-15s\n", line, destination, platform, timeString)))
             }
         }
-        buffer.append("--------------------------------------------------\n")
-        return buffer.toString()
+        table.append("--------------------------------------------------\n")
+        print(table)
     }
 
 }
