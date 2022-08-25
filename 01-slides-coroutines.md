@@ -1,7 +1,13 @@
 ---
 marp: true
-theme: uncover
+theme: default
 paginate: true
+style: |
+  .columns {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 1rem;
+  }
 ---
 
 # Coroutines
@@ -14,7 +20,7 @@ paginate: true
 
 <br/>
 
-[@mortenaa](twitter.com/mortenaa) <br/>
+[@mortenaa](twitter.com/mortenaa)
 [@javaguruen](twitter.com/javaguruen)
 
 ---
@@ -40,6 +46,9 @@ paginate: true
 
 ### What is a coroutine?
 
+<div class="columns">
+<div>
+
 ```kotlin
     val job = launch {
         println("Coroutine started")
@@ -49,11 +58,16 @@ paginate: true
     println("Coroutine launched")
 ```
 
+</div>
+<div>
+
 - A computation that can be suspended and resumed
 - Lightweight & fast switching
 - Easier to manage than threads
 - Can be run on one or many threads
 
+</div>
+</div>
 <!--
   Korutiner stammer tilbake til 60 tallet, men ble først popularisert med
   goroutines i Golang. 
@@ -143,6 +157,9 @@ Funksjoner som `runBlocking` og
 
 ### Async / Await
 
+<div class="columns">
+<div>
+
 ```kotlin
     val result = async {
         delay(1000L)
@@ -151,12 +168,18 @@ Funksjoner som `runBlocking` og
     println("Result=${result.await()}")
 ```
 
+</div>
+<div>
+
 - Build and start coroutine (like launch)
 - extension on CoroutineScope interface
 - Returns Deferred<T> which is subclass of Job
 - Can cancel or join like with Job
 - Can also `await`, which produces a value when completed
 - `await` will suspend until value is ready
+
+</div>
+</div>
 
 ---
 
