@@ -1,4 +1,4 @@
-package samples.coroutines
+package samples.coroutines.structured
 
 import kotlinx.coroutines.*
 

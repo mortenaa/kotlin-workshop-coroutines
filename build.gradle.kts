@@ -19,6 +19,9 @@ dependencies {
     implementation("io.ktor:ktor-client-cio:2.0.3")
     implementation("org.fusesource.jansi:jansi:2.4.0")
     testImplementation(kotlin("test"))
+    testImplementation("org.jetbrains.kotlinx:kotlinx-coroutines-test:1.6.4")
+    testImplementation("org.jetbrains.kotlinx:kotlinx-coroutines-debug:1.6.4")
+
 }
 
 tasks.test {

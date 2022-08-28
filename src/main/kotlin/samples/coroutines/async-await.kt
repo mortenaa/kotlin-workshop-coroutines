@@ -1,4 +1,4 @@
-package samples.coroutines
+package samples.coroutines.async
 
 import kotlinx.coroutines.*
 
@@ -15,7 +15,7 @@ suspend fun main() = coroutineScope {
      *
      */
 
-    val result = async {
+    val result: Deferred<Int> = async {
         println("Coroutine started")
         delay(1000L)
         println("Coroutine done")
@@ -23,4 +23,13 @@ suspend fun main() = coroutineScope {
     }
     println("Coroutine launched")
     println("Done. Result=${ result.await() }")
+
+    val deferreds: List<Deferred<Int>> = (1..100).map {
+        async {
+            delay(1000)
+            it
+        }
+    }
+    val list: List<Int> = deferreds.awaitAll()
+    println("Sum = ${list.sum()}")
 }

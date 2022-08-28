@@ -1,4 +1,4 @@
-package samples.coroutines
+package samples.coroutines.suspending
 
 import io.ktor.client.*
 import io.ktor.client.engine.cio.*

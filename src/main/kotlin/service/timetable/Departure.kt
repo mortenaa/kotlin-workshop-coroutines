@@ -2,10 +2,10 @@ package service.timetable
 
 data class Departure(
     val id: String,
-    val line: String,
+    val code: String,
     val destination: String,
     val time: DepartureTime,
-    val platform: String
+    val gate: String
 )
 
 data class DepartureTime(val hours: Hours, val minutes: Minutes) {

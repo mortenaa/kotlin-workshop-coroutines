@@ -1,15 +1,15 @@
 package service.timetable
 
+import kotlinx.coroutines.runBlocking
 import kotlin.time.ExperimentalTime
 import kotlin.time.measureTime
 
 @OptIn(ExperimentalTime::class)
-fun main() {
+fun main() = runBlocking {
 
     val departureDisplay = DepartureDisplay(TimetableService(), RealTimeService())
 
     while (true) {
-        departureDisplay
         val time = measureTime {
             departureDisplay.update()
         }

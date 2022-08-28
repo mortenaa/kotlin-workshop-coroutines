@@ -1,17 +1,26 @@
 package exercises.coroutines
 
 import kotlinx.coroutines.*
+import service.Product
+import service.User
 import service.UserService
 import java.time.Instant
+import kotlin.time.ExperimentalTime
+import kotlin.time.measureTime
+import kotlin.time.measureTimedValue
 
 val userService = UserService()
 
-fun main() {
-    getUserAndItems("101")
+fun main(): Unit = runBlocking {
 
-    getUserAndItemsCoroutine("102")
+    val coroutineUserService = CoroutineUserService(UserService())
 
-    getUserAndItemsConcurrent("103")
+    coroutineUserService.getUserAndItems("101")
+
+//    coroutineUserService.getUserAndItemsCoroutine("102")
+//    coroutineUserService.getUserAndItemsConcurrent("103")
+//    coroutineUserService.getUsersAndItemsInBulk(listOf("101", "102", "103"))
+
 }
 
 /**
@@ -25,33 +34,29 @@ fun main() {
  *
  */
 
-fun getUserAndItems(userId: String) {
-    val start = Instant.now().toEpochMilli()
-    val user = userService.getUser(userId)
-    val items = userService.getProducts(userId)
-    println("Got $items for $user")
-    val end = Instant.now().toEpochMilli()
-    println("Done in ${end-start} millis")
-}
+class CoroutineUserService(val userService: UserService) {
 
-fun getUserAndItemsCoroutine(userId: String) = runBlocking {
-    val start = Instant.now().toEpochMilli()
-    launch {
-        val user = userService.getUser(userId)
-        val items = userService.getProducts(userId)
-        println("Got $items for $user")
-    }.join()
-    val end = Instant.now().toEpochMilli()
-    println("Done in ${end-start} millis")
-}
+    @OptIn(ExperimentalTime::class)
+    suspend fun getUserAndItems(userId: String): Pair<User, List<Product>> {
+        val result = measureTimedValue {
+            val user = userService.getUser(userId)
+            val items = userService.getProducts(userId)
+            println("Got $items for $user")
+            user to items
+        }
+        println("Done in ${result.duration.inWholeMilliseconds}")
+        return result.value
+    }
 
-fun getUserAndItemsConcurrent(userId: String) = runBlocking {
-    val start = Instant.now().toEpochMilli()
-    launch() {
-        val user = async { userService.getUser(userId) }
-        val items = async { userService.getProducts(userId) }
-        println("Got ${items.await()} for ${user.await()}")
-    }.join()
-    val end = Instant.now().toEpochMilli()
-    println("Done in ${end - start} millis")
+    suspend fun getUserAndItemsCoroutine(userId: String): Pair<User, List<Product>> = coroutineScope {
+        TODO()
+    }
+
+    suspend fun getUserAndItemsConcurrent(userId: String): Pair<User, List<Product>> = coroutineScope {
+        TODO()
+    }
+
+    suspend fun getUsersAndItemsInBulk(userIds: List<String>): List<Pair<User, List<Product>>> = coroutineScope {
+        TODO()
+    }
 }

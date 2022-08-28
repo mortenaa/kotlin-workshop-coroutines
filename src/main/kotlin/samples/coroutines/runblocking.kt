@@ -5,7 +5,7 @@ import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.runBlocking
 
-suspend fun main() = coroutineScope {
+fun main() {
 
     /**
      * Launch a coroutine.
@@ -18,10 +18,9 @@ suspend fun main() = coroutineScope {
      *
      */
 
-    val job = launch {
-        println("Coroutine started")
+    val s = runBlocking {
         delay(1000L)
-        println("Coroutine done")
+        "world!"
     }
-    println("Coroutine launched")
-}.also { println("Done") }
+    println("Hello, $s")
+}

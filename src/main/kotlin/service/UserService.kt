@@ -1,5 +1,6 @@
 package service
 
+import kotlinx.coroutines.coroutineScope
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.runBlocking
 import java.util.UUID
@@ -11,14 +12,14 @@ data class Product(val productId: String, val productName: String, val price: In
 
 class UserService {
 
-    fun getUser(userId: String): User = runBlocking {
+    suspend fun getUser(userId: String): User = coroutineScope {
         delay(1000L)
-        return@runBlocking users.filter { it.userId.equals(userId) }.first()
+        users.filter { it.userId.equals(userId) }.first()
     }
 
-    fun getProducts(userId: String): List<Product> = runBlocking {
+    suspend fun getProducts(userId: String): List<Product> = coroutineScope {
         delay(1000L)
-        return@runBlocking userItems.get(userId)!!.map { id -> items.filter { it.productId == id }.first() }
+        userItems.get(userId)!!.map { id -> items.filter { it.productId == id }.first() }
     }
 
 }

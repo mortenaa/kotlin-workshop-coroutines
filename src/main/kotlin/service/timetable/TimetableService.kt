@@ -2,7 +2,8 @@ package service.timetable
 
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.runBlocking
-import java.util.*
+import kotlin.random.Random
+import java.util.concurrent.TimeoutException
 import kotlin.math.min
 
 fun main() {
@@ -23,6 +24,10 @@ class TimetableService {
 class RealTimeService {
     fun liveDepartureTime(departureId: String) = runBlocking {
         delay(500L)
+
+        if (Random.nextInt(0, 100) < 10) {
+            throw TimeoutException()
+        }
         realTime[departureId]
     }
 }
@@ -51,10 +56,10 @@ val timetable =
         7d0bcd7b-6f92-4bb4-9232-a5ba365be874, 22, Bergen, 10:00, A
     """.trimIndent()
         .lines()
-        .map {
-            it.split(", ").let {
-                val time = it[3].split(":").map { it.toByte() }
-                Departure(it[0], it[1],it[2], DepartureTime(Hours(time[0]), Minutes(time[1])), it[4])
+        .map { line ->
+            line.split(", ").let { column ->
+                val time = column[3].split(":").map { it.toByte() }
+                Departure(column[0], column[1],column[2], DepartureTime(Hours(time[0]), Minutes(time[1])), column[4])
             }
         }
 
@@ -68,9 +73,9 @@ val realTime =
         94b16ba4-5d0b-498e-8db6-954ee5c284ac, 10:01
     """.trimIndent()
         .lines()
-        .associate {
-            it.split(", ").let {
-                val time = it[1].split(":").map { it.toByte() }
-                it[0] to DepartureTime(Hours(time[0]), Minutes(time[1]))
+        .associate { line ->
+            line.split(", ").let { column ->
+                val time = column[1].split(":").map { it.toByte() }
+                column[0] to DepartureTime(Hours(time[0]), Minutes(time[1]))
             }
         }
