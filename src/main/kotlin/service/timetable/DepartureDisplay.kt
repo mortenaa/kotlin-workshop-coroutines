@@ -1,5 +1,6 @@
 package service.timetable
 
+import kotlinx.coroutines.debug.DebugProbes
 import org.fusesource.jansi.Ansi.ansi
 
 class DepartureDisplay(val timetableService: TimetableService, val realTimeService: RealTimeService) {
@@ -26,6 +27,7 @@ class DepartureDisplay(val timetableService: TimetableService, val realTimeServi
         }
         table.append("--------------------------------------------------\n")
         print(table)
+
     }
 
 }

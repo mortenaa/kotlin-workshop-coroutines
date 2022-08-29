@@ -1,6 +1,7 @@
 package service.timetable
 
 import kotlinx.coroutines.*
+import kotlinx.coroutines.debug.DebugProbes
 import java.lang.Exception
 import java.util.concurrent.TimeoutException
 
@@ -27,6 +28,7 @@ class DepartureFetcher(val timetableService: TimetableService, val realTimeServi
                 } catch (e: TimeoutException) { null }
             }
         }
+
         val times = awaitAll(*deferred.toTypedArray())
         departures.zip(times) { dep, time ->
             DepartureWithLiveTime(dep, time)

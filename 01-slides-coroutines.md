@@ -372,3 +372,7 @@ Context og dermed tråd kan endres underveis i en korutine med `withContext`
 ---
 
 # Debugging Coroutines
+
+- Breakpoints need to suspend all threads
+- Intellij will show current coroutines and contexts
+- A special JVM agent can be installed to enable dumping of coroutines from code
